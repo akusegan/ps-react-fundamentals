@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello React</title>
+</head>
+<body>
+    <div id="app">
+    </div>
+    <script crossorigin="anonymous" src="https://unpkg.com/react/umd/react.development.js"></script>
+    <script crossorigin="anonymous" src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel"> 
+        class MyHeading extends React.Component {
+            render() {
+                return (
+                    <header>
+                        <h1>Hello {this.props.name === 'React' ? <i>{this.props.name}</i> : this.props.name}!!</h1>
+                    </header>
+                )
+            }
+        }
+        MyHeading.defaultProps = {
+            name: 'World'
+        }
+
+        class CounterButton extends React.Component {
+            constructor (props) {
+                super(props)
+                this.state = {
+                    count: 0
+                }
+            }
+
+            increaseCount = (e) => {
+                this.setState({count: this.state.count + 1})
+            }
+
+            decreaseCount = (e) => {
+                this.setState({count: this.state.count - 1})
+            }
+
+            render() {
+                return (
+                    <div>
+                        <h1>{this.state.count}</h1>
+                        <button onClick={this.increaseCount}>Increment</button>
+                         <button onClick={this.decreaseCount}>Decrement</button>
+                    </div>
+                )
+            }
+        }
+
+        function MyButton({bg = 'green'}) {
+            const style = {
+                backgroundColor: bg,
+                color: '#ffffff',
+                padding: '15px 32px',
+                border: 'none',
+                cursor: 'pointer',
+                margin: '10px'
+            }
+            
+            const handleClick = (e) => {
+                console.log('button clicked', e)     
+            }
+            return (
+                <button style={style} onClick={handleClick} >Click Me</button>
+            )
+        }
+
+        function App () {
+            return (
+                <div onClick={(e) => console.log('App Click')}>
+                    <MyHeading/>
+                    <MyButton />
+                    <MyButton bg="Red" />
+                    <CounterButton />
+                </div>
+            )
+        }
+
+        ReactDOM.render(<App />, document.querySelector('#app'))
+    </script>    
+</body>
+</html>
